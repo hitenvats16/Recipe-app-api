@@ -1,6 +1,5 @@
 # Test for models
 
-import email
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from core import models
@@ -40,7 +39,7 @@ class ModelTest(TestCase):
             get_user_model().objects.create_user(
                 email='',
                 password='Password@123'
-                )
+            )
 
     def test_create_superuser(self):
         # Test creating a superuser
@@ -53,16 +52,16 @@ class ModelTest(TestCase):
 
     def test_create_recipe(self):
         user = get_user_model().objects.create_user(
-            email = 'user@example.com',
-            password = 'password@123'
+            email='user@example.com',
+            password='password@123'
         )
 
         recipe = models.Recipe.objects.create(
-            title = 'Recipe',
-            price = Decimal('5.5'),
-            user = user,
-            time_minutes = 5,
-            description = 'Sample discription for the recipe'
+            title='Recipe',
+            price=Decimal('5.5'),
+            user=user,
+            time_minutes=5,
+            description='Sample discription for the recipe'
         )
 
-        self.assertEqual(str(recipe),recipe.title)
+        self.assertEqual(str(recipe), recipe.title)
