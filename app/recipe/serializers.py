@@ -1,7 +1,7 @@
 # serializers for recipe API
 
+from core.models import Ingredient, Recipe, Tag
 from rest_framework import serializers
-from core.models import Recipe, Tag, Ingredient
 
 
 class IngredientSerializer(serializers.ModelSerializer):

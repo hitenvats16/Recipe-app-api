@@ -72,12 +72,12 @@ class PrivateRecipeApiTests(TestCase):
     def test_retrieve_recipes(self):
         """Test for retrieving a list of recipes"""
 
-        create_recipe(self.user)
-        create_recipe(self.user)
+        create_recipe(self.user, title='title1')
+        create_recipe(self.user, title='title2')
 
         res = self.client.get(RECIPE_URL)
 
-        recipes = Recipe.objects.order_by('-id')
+        recipes = Recipe.objects.all().order_by('-id')
         serializer = RecipeSerializer(recipes, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -456,6 +456,66 @@ class PrivateRecipeApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(recipe.ingredients.count(), 0)
+
+    def test_filter_by_tags(self):
+        """Test filtering recipes by tags."""
+        r1 = create_recipe(user=self.user, title='Curry')
+        r2 = create_recipe(user=self.user, title='Eggplant kofta')
+
+        tag1 = Tag.objects.create(
+            user=self.user,
+            name='Vegetarian'
+        )
+
+        tag2 = Tag.objects.create(
+            user=self.user,
+            name='Spice'
+        )
+
+        r1.tags.add(tag1)
+        r2.tags.add(tag2)
+        r3 = create_recipe(user=self.user, title='Another dish')
+
+        params = {
+            'tags': f'{tag1.id},{tag2.id}'
+        }
+
+        res = self.client.get(RECIPE_URL, params)
+
+        s1 = RecipeSerializer(r1)
+        s2 = RecipeSerializer(r2)
+        s3 = RecipeSerializer(r3)
+
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
+
+    def test_filter_by_ingredients(self):
+        """Test filtering recipes by ingredients"""
+        r1 = create_recipe(user=self.user, title='bean curry')
+        r2 = create_recipe(user=self.user, title='pizza curry')
+
+        in1 = Ingredient.objects.create(user=self.user, name='bean')
+        in2 = Ingredient.objects.create(user=self.user, name='pizza')
+
+        r1.ingredients.add(in1)
+        r2.ingredients.add(in2)
+
+        r3 = create_recipe(user=self.user, title='recipe')
+
+        params = {
+            'ingredients': f'{in1.id},{in2.id}',
+        }
+
+        res = self.client.get(RECIPE_URL, params)
+
+        s1 = RecipeSerializer(r1)
+        s2 = RecipeSerializer(r2)
+        s3 = RecipeSerializer(r3)
+
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
 
 
 class ImageUploadTests(TestCase):
