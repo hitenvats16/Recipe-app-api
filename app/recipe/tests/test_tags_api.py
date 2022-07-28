@@ -1,9 +1,8 @@
 # Tests fro tags Api
 
 from decimal import Decimal
-from app.core.models import Recipe
 
-from core.models import Tag
+from core.models import Tag, Recipe
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
