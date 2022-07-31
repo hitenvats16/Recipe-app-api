@@ -16,7 +16,6 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background: #000;
       }
 
       .glow-on-hover {
@@ -96,11 +95,57 @@
         }
       }
     </style>
+    <style>
+      .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(0, 0, 0) 50%, rgb(48, 48, 48) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: 0.5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+      }
+
+      .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+      }
+
+      .bg3 {
+        animation-duration: 5s;
+      }
+
+      .content {
+        background-color: rgba(19, 19, 19, 0.8);
+        border-radius: 0.25em;
+        box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+        left: 50%;
+        padding: 10vmin;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-25%);
+        }
+        100% {
+          transform: translateX(25%);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div
-      class="bg-black flex items-center justify-center flex-col h-screen w-full"
-    >
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content flex items-center justify-center flex-col">
       <div class="w-max h-max">
         <h1 class="text-3xl text-blue-100 font-bold">
           This is a Recipe API built with DRF and Deployed on AWS.
