@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Recipe API</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .glow-on-hover {
+        width: 220px;
+        height: 50px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #111;
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+      }
+
+      .glow-on-hover:before {
+        content: "";
+        background: linear-gradient(
+          45deg,
+          #ff0000,
+          #ff7300,
+          #fffb00,
+          #48ff00,
+          #00ffd5,
+          #002bff,
+          #7a00ff,
+          #ff00c8,
+          #ff0000
+        );
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 10px;
+      }
+
+      .glow-on-hover:active {
+        color: #000;
+      }
+
+      .glow-on-hover:active:after {
+        background: transparent;
+      }
+
+      .glow-on-hover:hover:before {
+        opacity: 1;
+      }
+
+      .glow-on-hover:after {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #111;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+      }
+
+      @keyframes glowing {
+        0% {
+          background-position: 0 0;
+        }
+        50% {
+          background-position: 400% 0;
+        }
+        100% {
+          background-position: 0 0;
+        }
+      }
+    </style>
+    <style>
+      .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(0, 0, 0) 50%, rgb(48, 48, 48) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: 0.5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+      }
+
+      .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+      }
+
+      .bg3 {
+        animation-duration: 5s;
+      }
+
+      .content {
+        background-color: rgba(19, 19, 19, 0.8);
+        border-radius: 0.25em;
+        box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+        left: 50%;
+        padding: 10vmin;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-25%);
+        }
+        100% {
+          transform: translateX(25%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content flex items-center justify-center flex-col">
+      <div class="w-max h-max">
+        <h1 class="text-3xl text-blue-100 font-bold">
+          This is a Recipe API built with DRF and Deployed on AWS.
+        </h1>
+        <div class="py-10 w-full flex items-center justify-center">
+          <button
+            class="glow-on-hover text-xl font-semibold mx-4"
+            onclick="location.href='https://github.com/hitenvats16/Recipe-app-api'"
+            type="button"
+          >
+            To the Code 👨‍💻
+          </button>
+          <button
+            class="glow-on-hover text-xl font-semibold mx-4"
+            onclick="location.href=`${window.location.href}api/docs`"
+            type="button"
+          >
+            To the Docs 🚀
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

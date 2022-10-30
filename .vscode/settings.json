@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/6ee36060-244a-4913-9377-eba50834b3cf/AppServices/subscriptions/6ee36060-244a-4913-9377-eba50834b3cf/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/recipe-app-by-hiten",
+    "appService.deploySubpath": "."
+}
